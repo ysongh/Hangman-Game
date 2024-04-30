@@ -1,0 +1,12 @@
+---
+program: hangman
+inputs:
+  secrets:
+    my_int1:
+      SecretInteger: "10"
+    my_int2:
+      SecretInteger: "10"
+  public_variables: {}
+expected_outputs:
+  my_output:
+    Integer: "1"
