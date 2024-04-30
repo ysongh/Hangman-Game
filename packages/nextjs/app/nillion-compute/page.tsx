@@ -28,7 +28,7 @@ const Home: NextPage = () => {
   const [nillion, setNillion] = useState<any>(null);
   const [nillionClient, setNillionClient] = useState<any>(null);
 
-  const [programName] = useState<string>("addition_simple");
+  const [programName] = useState<string>("subtraction_simple");
   const [programId, setProgramId] = useState<string | null>(null);
   const [computeResult, setComputeResult] = useState<string | null>(null);
 
