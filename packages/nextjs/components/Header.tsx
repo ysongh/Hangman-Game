@@ -20,6 +20,10 @@ export const menuLinks: HeaderMenuLink[] = [
     href: "/",
   },
   {
+    label: "🎮 Game",
+    href: "/hangman",
+  },
+  {
     label: "🖥️ Blind Computation",
     href: "/nillion-compute",
   },
