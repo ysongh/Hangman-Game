@@ -3,10 +3,10 @@ program: hangman
 inputs:
   secrets:
     my_int1:
-      SecretInteger: "10"
+      SecretInteger: "3"
     my_int2:
-      SecretInteger: "10"
+      SecretInteger: "3"
   public_variables: {}
 expected_outputs:
   my_output:
-    Integer: "1"
+    SecretInteger: "3"
