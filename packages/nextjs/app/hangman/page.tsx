@@ -37,7 +37,7 @@ const HangmanGame: NextPage = () => {
   const [storedSecretsNameToStoreId, setStoredSecretsNameToStoreId] = useState<StringObject>({
     letter1: null,
     letter2: null,
-    // guess: null,
+    guess: null,
   });
   const [parties] = useState<string[]>(["Party1"]);
   const [outputs] = useState<string[]>(["my_output"]);
