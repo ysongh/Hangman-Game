@@ -7,7 +7,7 @@ import CodeSnippet from "~~/components/nillion/CodeSnippet";
 import { CopyString } from "~~/components/nillion/CopyString";
 import { NillionOnboarding } from "~~/components/nillion/NillionOnboarding";
 import RetrieveSecretCommand from "~~/components/nillion/RetrieveSecretCommand";
-import SecretForm from "~~/components/nillion/SecretForm";
+// import SecretForm from "~~/components/nillion/SecretForm";
 import { Address } from "~~/components/scaffold-eth";
 import { compute } from "~~/utils/nillion/compute";
 import { getUserKeyFromSnap } from "~~/utils/nillion/getUserKeyFromSnap";
@@ -15,6 +15,7 @@ import { retrieveSecretCommand } from "~~/utils/nillion/retrieveSecretCommand";
 import { retrieveSecretInteger } from "~~/utils/nillion/retrieveSecretInteger";
 import { storeProgram } from "~~/utils/nillion/storeProgram";
 import { storeSecretsInteger } from "~~/utils/nillion/storeSecretsInteger";
+import SecretWordForm from '~~/components/nillion/SecretWordForm';
 
 const words = ['apple', 'banana', 'orange', 'grape', 'pineapple'];
 
@@ -275,7 +276,7 @@ const HangmanGame: NextPage = () => {
                           </button>
                         </>
                       ) : (
-                        <SecretForm
+                        <SecretWordForm
                           secretName={key}
                           onSubmit={handleSecretFormSubmit}
                           isDisabled={!programId}
@@ -306,6 +307,7 @@ const HangmanGame: NextPage = () => {
           )}
         </div>
       </div>
+      
 
       <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleNewGame}>
         New Game
