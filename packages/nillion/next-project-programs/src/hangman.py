@@ -5,6 +5,6 @@ def nada_main():
     my_int1 = SecretInteger(Input(name="letter1", party=party1))
     my_int2 = SecretInteger(Input(name="letter2", party=party1))
 
-    new_int = (my_int1 >= my_int2).if_else(Integer(1), Integer(0))
+    new_int = (my_int1 >= my_int2).if_else((my_int1 <= my_int2).if_else(Integer(1), Integer(0)), Integer(0))
 
     return [Output(new_int, "my_output", party1)]

@@ -3,11 +3,6 @@ version = "0.1.0"
 authors = [""]
 
 [[programs]]
-path = "src/subtraction_simple.py"
-name = "subtraction_simple"
-prime_size = 128
-
-[[programs]]
 path = "src/hangman.py"
 name = "hangman"
 prime_size = 128
