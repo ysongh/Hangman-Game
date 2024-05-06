@@ -270,7 +270,7 @@ const HangmanGame: NextPage = () => {
                         />
                         <button
                           className="btn btn-sm btn-primary mt-4"
-                          onClick={() => handleRetrieveInt("letter1", storedSecretsNameToStoreId[key])}
+                          onClick={() => handleRetrieveInt("letter1", storedSecretsNameToStoreId.letter1)}
                         >
                           👀 Retrieve SecretInteger
                         </button>
@@ -296,7 +296,7 @@ const HangmanGame: NextPage = () => {
                         />
                         <button
                           className="btn btn-sm btn-primary mt-4"
-                          onClick={() => handleRetrieveInt("letter2", storedSecretsNameToStoreId[key])}
+                          onClick={() => handleRetrieveInt("letter2", storedSecretsNameToStoreId.letter2)}
                         >
                           👀 Retrieve SecretInteger
                         </button>
