@@ -41,7 +41,8 @@ const SecretWordForm: React.FC<SecretWordFormProps> = ({
     setLoading(true);
     onSubmit(
       secretNameFromForm,
-      (secret.charCodeAt(0) - 96).toString(),
+      secret,
+      // (secret.charCodeAt(0) - 96).toString(),
       permissionedUserIdForRetrieveSecret,
       permissionedUserIdForUpdateSecret,
       permissionedUserIdForDeleteSecret,

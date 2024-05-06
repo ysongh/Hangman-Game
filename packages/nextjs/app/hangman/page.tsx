@@ -110,6 +110,53 @@ const HangmanGame: NextPage = () => {
       await storeSecretsInteger(
         nillion,
         nillionClient,
+        [{ name: secretName, value: (secretValue[0].charCodeAt(0) - 96).toString(), }],
+        programId,
+        partyName,
+        permissionedUserIdForRetrieveSecret ? [permissionedUserIdForRetrieveSecret] : [],
+        permissionedUserIdForUpdateSecret ? [permissionedUserIdForUpdateSecret] : [],
+        permissionedUserIdForDeleteSecret ? [permissionedUserIdForDeleteSecret] : [],
+        permissionedUserIdForComputeSecret ? [permissionedUserIdForComputeSecret] : [],
+      ).then(async (store_id: string) => {
+        console.log("Secret stored at store_id:", store_id);
+        setStoredSecretsNameToStoreId(prevSecrets => ({
+          ...prevSecrets,
+          [secretName]: store_id,
+        }));
+      });
+      await storeSecretsInteger(
+        nillion,
+        nillionClient,
+        [{ name: "letter2",value: (secretValue[1].charCodeAt(0) - 96).toString(), }],
+        programId,
+        partyName,
+        permissionedUserIdForRetrieveSecret ? [permissionedUserIdForRetrieveSecret] : [],
+        permissionedUserIdForUpdateSecret ? [permissionedUserIdForUpdateSecret] : [],
+        permissionedUserIdForDeleteSecret ? [permissionedUserIdForDeleteSecret] : [],
+        permissionedUserIdForComputeSecret ? [permissionedUserIdForComputeSecret] : [],
+      ).then(async (store_id: string) => {
+        console.log("Secret stored at store_id:", store_id);
+        setStoredSecretsNameToStoreId(prevSecrets => ({
+          ...prevSecrets,
+          ["letter2"]: store_id,
+        }));
+      });
+    }
+  }
+
+  async function handleGuessFormSubmit(
+    secretName: string,
+    secretValue: string,
+    permissionedUserIdForRetrieveSecret: string | null,
+    permissionedUserIdForUpdateSecret: string | null,
+    permissionedUserIdForDeleteSecret: string | null,
+    permissionedUserIdForComputeSecret: string | null,
+  ) {
+    if (programId) {
+      const partyName = parties[0];
+      await storeSecretsInteger(
+        nillion,
+        nillionClient,
         [{ name: secretName, value: secretValue }],
         programId,
         partyName,
@@ -286,7 +333,7 @@ const HangmanGame: NextPage = () => {
                   </div>
 
                   <div className="flex-1 px-2">
-                    {!!storedSecretsNameToStoreId.letter2 && userKey ? (
+                    {!!storedSecretsNameToStoreId.letter2 && userKey && (
                       <>
                         <RetrieveSecretCommand
                           secretType="SecretInteger"
@@ -301,13 +348,6 @@ const HangmanGame: NextPage = () => {
                           👀 Retrieve SecretInteger
                         </button>
                       </>
-                    ) : (
-                      <SecretWordForm
-                        secretName="letter2"
-                        onSubmit={handleSecretFormSubmit}
-                        isDisabled={!programId}
-                        secretType="number"
-                      />
                     )}
                   </div>
                 </div>
@@ -318,10 +358,17 @@ const HangmanGame: NextPage = () => {
                   storeId={storedSecretsNameToStoreId.guess}
                   secretName="guess"
                 />
+
+                <button
+                  className="btn btn-sm btn-primary mt-4 mb-5"
+                  onClick={() => handleRetrieveInt("guess", storedSecretsNameToStoreId.guess)}
+                >
+                  👀 Retrieve SecretInteger
+                </button>
                
                 <GuessForm
                   secretName="guess"
-                  onSubmit={handleSecretFormSubmit}
+                  onSubmit={handleGuessFormSubmit}
                   isDisabled={!programId}
                   secretType="number"
                 />
