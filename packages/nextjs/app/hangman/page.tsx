@@ -259,34 +259,59 @@ const HangmanGame: NextPage = () => {
                 </h1>
 
                 <div className="flex flex-row w-full justify-between items-center my-10 mx-10">
-                  {Object.keys(storedSecretsNameToStoreId).map(key => (
-                    <div className="flex-1 px-2" key={key}>
-                      {!!storedSecretsNameToStoreId[key] && userKey ? (
-                        <>
-                          <RetrieveSecretCommand
-                            secretType="SecretInteger"
-                            userKey={userKey}
-                            storeId={storedSecretsNameToStoreId[key]}
-                            secretName={key}
-                          />
-                          <button
-                            className="btn btn-sm btn-primary mt-4"
-                            onClick={() => handleRetrieveInt(key, storedSecretsNameToStoreId[key])}
-                          >
-                            👀 Retrieve SecretInteger
-                          </button>
-                        </>
-                      ) : (
-                        <SecretWordForm
-                          secretName={key}
-                          onSubmit={handleSecretFormSubmit}
-                          isDisabled={!programId}
-                          secretType="number"
+                  <div className="flex-1 px-2">
+                    {!!storedSecretsNameToStoreId.letter1 && userKey ? (
+                      <>
+                        <RetrieveSecretCommand
+                          secretType="SecretInteger"
+                          userKey={userKey}
+                          storeId={storedSecretsNameToStoreId.letter1}
+                          secretName="letter1"
                         />
-                      )}
-                    </div>
-                  ))}
+                        <button
+                          className="btn btn-sm btn-primary mt-4"
+                          onClick={() => handleRetrieveInt("letter1", storedSecretsNameToStoreId[key])}
+                        >
+                          👀 Retrieve SecretInteger
+                        </button>
+                      </>
+                    ) : (
+                      <SecretWordForm
+                        secretName="letter1"
+                        onSubmit={handleSecretFormSubmit}
+                        isDisabled={!programId}
+                        secretType="number"
+                      />
+                    )}
+                  </div>
+
+                  <div className="flex-1 px-2">
+                    {!!storedSecretsNameToStoreId.letter2 && userKey ? (
+                      <>
+                        <RetrieveSecretCommand
+                          secretType="SecretInteger"
+                          userKey={userKey}
+                          storeId={storedSecretsNameToStoreId.letter2}
+                          secretName="letter2"
+                        />
+                        <button
+                          className="btn btn-sm btn-primary mt-4"
+                          onClick={() => handleRetrieveInt("letter2", storedSecretsNameToStoreId[key])}
+                        >
+                          👀 Retrieve SecretInteger
+                        </button>
+                      </>
+                    ) : (
+                      <SecretWordForm
+                        secretName="letter2"
+                        onSubmit={handleSecretFormSubmit}
+                        isDisabled={!programId}
+                        secretType="number"
+                      />
+                    )}
+                  </div>
                 </div>
+               
                 <GuessForm
                   secretName="guess"
                   onSubmit={handleSecretFormSubmit}
