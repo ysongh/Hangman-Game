@@ -311,6 +311,13 @@ const HangmanGame: NextPage = () => {
                     )}
                   </div>
                 </div>
+
+                <RetrieveSecretCommand
+                  secretType="SecretInteger"
+                  userKey="guess"
+                  storeId={storedSecretsNameToStoreId.guess}
+                  secretName="guess"
+                />
                
                 <GuessForm
                   secretName="guess"
