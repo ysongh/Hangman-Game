@@ -16,6 +16,7 @@ import { retrieveSecretInteger } from "~~/utils/nillion/retrieveSecretInteger";
 import { storeProgram } from "~~/utils/nillion/storeProgram";
 import { storeSecretsInteger } from "~~/utils/nillion/storeSecretsInteger";
 import SecretWordForm from '~~/components/nillion/SecretWordForm';
+import GuessForm from '~~/components/nillion/GuessForm';
 
 const words = ['apple', 'banana', 'orange', 'grape', 'pineapple'];
 
@@ -286,21 +287,25 @@ const HangmanGame: NextPage = () => {
                     </div>
                   ))}
                 </div>
+                <GuessForm
+                  secretName="guess"
+                  onSubmit={handleSecretFormSubmit}
+                  isDisabled={!programId}
+                  secretType="number"
+                />
               </div>
 
               <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center w-full rounded-3xl my-2 justify-between">
                 <h1 className="text-xl">
                   Step 3: Perform blind computation with stored secrets in the {programName} program
                 </h1>
-                {!computeResult && (
-                  <button
-                    className="btn btn-sm btn-primary mt-4"
-                    onClick={handleCompute}
-                    disabled={Object.values(storedSecretsNameToStoreId).every(v => !v)}
-                  >
-                    Compute on {programName}
-                  </button>
-                )}
+                <button
+                  className="btn btn-sm btn-primary mt-4"
+                  onClick={handleCompute}
+                  disabled={Object.values(storedSecretsNameToStoreId).every(v => !v)}
+                >
+                  Compute on {programName}
+                </button>
                 {computeResult && <p>✅ Compute result: {computeResult}</p>}
               </div>
             </div>
