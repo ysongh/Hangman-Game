@@ -162,31 +162,24 @@ const HangmanGame: NextPage = () => {
     }
   }
 
-  async function handleGuessFormSubmit(
-    secretName: string,
-    secretValue: string,
-    permissionedUserIdForRetrieveSecret: string | null,
-    permissionedUserIdForUpdateSecret: string | null,
-    permissionedUserIdForDeleteSecret: string | null,
-    permissionedUserIdForComputeSecret: string | null,
-  ) {
+  async function handleGuessFormSubmit(secretValue: string) {
     if (programId) {
       const partyName = parties[0];
       await storeSecretsInteger(
         nillion,
         nillionClient,
-        [{ name: secretName, value: secretValue }],
+        [{ name: "guess", value: (secretValue.charCodeAt(0) - 96).toString() }],
         programId,
         partyName,
-        permissionedUserIdForRetrieveSecret ? [permissionedUserIdForRetrieveSecret] : [],
-        permissionedUserIdForUpdateSecret ? [permissionedUserIdForUpdateSecret] : [],
-        permissionedUserIdForDeleteSecret ? [permissionedUserIdForDeleteSecret] : [],
-        permissionedUserIdForComputeSecret ? [permissionedUserIdForComputeSecret] : [],
+        [],
+        [],
+        [],
+        [],
       ).then(async (store_id: string) => {
         console.log("Secret stored at store_id:", store_id);
         setStoredSecretsNameToStoreId(prevSecrets => ({
           ...prevSecrets,
-          [secretName]: store_id,
+          ["guess"]: store_id,
         }));
       });
     }
@@ -214,15 +207,16 @@ const HangmanGame: NextPage = () => {
   };
 
   const handleGuess = (letter) => {
-    if (!guessedLetters.has(letter)) {
-      const newGuessedLetters = new Set(guessedLetters);
-      newGuessedLetters.add(letter);
-      setGuessedLetters(newGuessedLetters);
+    // if (!guessedLetters.has(letter)) {
+    //   const newGuessedLetters = new Set(guessedLetters);
+    //   newGuessedLetters.add(letter);
+    //   setGuessedLetters(newGuessedLetters);
 
-      if (!word.includes(letter)) {
-        setRemainingAttempts(remainingAttempts - 1);
-      }
-    }
+    //   if (!word.includes(letter)) {
+    //     setRemainingAttempts(remainingAttempts - 1);
+    //   }
+    // }
+    handleGuessFormSubmit(letter);
   };
 
   const getDisplayWord = () => {
@@ -384,7 +378,12 @@ const HangmanGame: NextPage = () => {
                     )}
                   </div>
                 </div>
+              </div>
 
+              <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center w-full rounded-3xl my-2 justify-between">
+                <h1 className="text-xl">
+                  Step 3: Perform blind computation with stored secrets in the {programName} program
+                </h1>
                 <RetrieveSecretCommand
                   secretType="SecretInteger"
                   userKey="guess"
@@ -398,19 +397,29 @@ const HangmanGame: NextPage = () => {
                 >
                   👀 Retrieve SecretInteger
                 </button>
-               
+                {/*                
                 <GuessForm
                   secretName="guess"
                   onSubmit={handleGuessFormSubmit}
                   isDisabled={!programId}
                   secretType="number"
-                />
-              </div>
+                /> */}
 
-              <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center w-full rounded-3xl my-2 justify-between">
-                <h1 className="text-xl">
-                  Step 3: Perform blind computation with stored secrets in the {programName} program
-                </h1>
+                <p>Choose a letter</p>
+
+                <div className="flex flex-wrap">
+                  {Array.from(Array(26).keys()).map((i) => (
+                    <button
+                      key={i}
+                      className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded mr-2 mb-2"
+                      onClick={() => handleGuess(String.fromCharCode(65 + i).toLowerCase())}
+                      // disabled={isGameOver()}
+                    >
+                      {String.fromCharCode(65 + i)}
+                    </button>
+                  ))}
+                </div>
+
                 <button
                   className="btn btn-sm btn-primary mt-4"
                   onClick={handleCompute}
