@@ -23,23 +23,23 @@ export const menuLinks: HeaderMenuLink[] = [
     label: "🎮 Game",
     href: "/hangman",
   },
-  {
-    label: "🖥️ Blind Computation",
-    href: "/nillion-compute",
-  },
-  {
-    label: "🎯 Hello World",
-    href: "/nillion-hello-world",
-  },
-  {
-    label: "✅ Hello World",
-    href: "/nillion-hello-world-complete",
-  },
-  {
-    label: "Debug Contracts",
-    href: "/debug",
-    icon: <BugAntIcon className="h-4 w-4" />,
-  },
+  // {
+  //   label: "🖥️ Blind Computation",
+  //   href: "/nillion-compute",
+  // },
+  // {
+  //   label: "🎯 Hello World",
+  //   href: "/nillion-hello-world",
+  // },
+  // {
+  //   label: "✅ Hello World",
+  //   href: "/nillion-hello-world-complete",
+  // },
+  // {
+  //   label: "Debug Contracts",
+  //   href: "/debug",
+  //   icon: <BugAntIcon className="h-4 w-4" />,
+  // },
 ];
 
 export const HeaderMenuLinks = () => {

@@ -422,7 +422,7 @@ const HangmanGame: NextPage = () => {
 
                 <p>Choose a letter</p>
 
-                <div className="flex flex-wrap">
+                <div className="flex flex-wrap w-[600px]">
                   {Array.from(Array(26).keys()).map((i) => (
                     <button
                       key={i}
@@ -457,7 +457,7 @@ const HangmanGame: NextPage = () => {
       </div>
       
 
-      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleNewGame}>
+      {/* <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleNewGame}>
         New Game
       </button>
       <div className="mt-8">
@@ -485,7 +485,7 @@ const HangmanGame: NextPage = () => {
             <p className="mt-4">Remaining Attempts: {remainingAttempts}</p>
           </div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
