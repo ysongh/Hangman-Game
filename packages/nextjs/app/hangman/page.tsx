@@ -36,6 +36,8 @@ const HangmanGame: NextPage = () => {
   const [programId, setProgramId] = useState<string | null>(null);
   const [computeResult, setComputeResult] = useState<string | null>(null);
   const [selectedKey, setSelectedKey] = useState<number | null>(null);
+  const [letters, setLetters] = useState(["_", "_", "_"]);
+  const [selectLetter, setSelectLetter] = useState("-");
 
   const [storedSecretsNameToStoreId, setStoredSecretsNameToStoreId] = useState<StringObject>({
     letter1: null,
@@ -191,8 +193,14 @@ const HangmanGame: NextPage = () => {
     if (programId) {
       await compute(nillion, nillionClient, Object.values(storedSecretsNameToStoreId), programId, outputs[0]).then(
         result => {
+          console.log(result, "result", typeof result);
+          let newLetters = [...letters];
+          if (result[1] === "1") newLetters[0] = selectLetter;
+          if (result[2] === "1") newLetters[1] = selectLetter;
+          if (result[3] === "1") newLetters[2] = selectLetter;
           if (result === "0") setRemainingAttempts(remainingAttempts - 1);
           setComputeResult(result);
+          setLetters(newLetters);
         },
       );
     }
@@ -211,7 +219,9 @@ const HangmanGame: NextPage = () => {
   };
 
   const handleGuess = (letter, index) => {
+    console.log(letter, "letter")
     setSelectedKey(index);
+    setSelectLetter(letter);
     // if (!guessedLetters.has(letter)) {
     //   const newGuessedLetters = new Set(guessedLetters);
     //   newGuessedLetters.add(letter);
@@ -433,6 +443,11 @@ const HangmanGame: NextPage = () => {
                 >
                   Compute on {programName}
                 </button>
+                <div className='flex'>
+                  {letters.map(l => (
+                    <p className='mr-1'>{l}</p>
+                  ))}
+                </div>
                 {computeResult && <p>✅ Compute result: {computeResult}</p>}
                 <p className="mt-4">Remaining Attempts: {remainingAttempts}</p>
               </div>

@@ -7,7 +7,7 @@ def nada_main():
     my_int3 = SecretInteger(Input(name="letter3", party=party1))
     guess = SecretInteger(Input(name="guess", party=party1))
 
-    new_int = Integer(0)
+    new_int = Integer(9000)
     new_int += (my_int1 >= guess).if_else((my_int1 <= guess).if_else(Integer(100), Integer(0)), Integer(0))
     new_int += (my_int2 >= guess).if_else((my_int2 <= guess).if_else(Integer(10), Integer(0)), Integer(0))
     new_int += (my_int3 >= guess).if_else((my_int3 <= guess).if_else(Integer(1), Integer(0)), Integer(0))
