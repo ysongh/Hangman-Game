@@ -35,6 +35,7 @@ const HangmanGame: NextPage = () => {
   const [programName] = useState<string>("hangman");
   const [programId, setProgramId] = useState<string | null>(null);
   const [computeResult, setComputeResult] = useState<string | null>(null);
+  const [selectedKey, setSelectedKey] = useState<number | null>(null);
 
   const [storedSecretsNameToStoreId, setStoredSecretsNameToStoreId] = useState<StringObject>({
     letter1: null,
@@ -189,7 +190,10 @@ const HangmanGame: NextPage = () => {
   async function handleCompute() {
     if (programId) {
       await compute(nillion, nillionClient, Object.values(storedSecretsNameToStoreId), programId, outputs[0]).then(
-        result => setComputeResult(result),
+        result => {
+          if (result === "0") setRemainingAttempts(remainingAttempts - 1);
+          setComputeResult(result);
+        },
       );
     }
   }
@@ -206,7 +210,8 @@ const HangmanGame: NextPage = () => {
     setRemainingAttempts(6);
   };
 
-  const handleGuess = (letter) => {
+  const handleGuess = (letter, index) => {
+    setSelectedKey(index);
     // if (!guessedLetters.has(letter)) {
     //   const newGuessedLetters = new Set(guessedLetters);
     //   newGuessedLetters.add(letter);
@@ -412,7 +417,8 @@ const HangmanGame: NextPage = () => {
                     <button
                       key={i}
                       className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded mr-2 mb-2"
-                      onClick={() => handleGuess(String.fromCharCode(65 + i).toLowerCase())}
+                      style={{ backgroundColor: selectedKey === i ? "orange" : "pink"}}
+                      onClick={() => handleGuess(String.fromCharCode(65 + i).toLowerCase(), i)}
                       // disabled={isGameOver()}
                     >
                       {String.fromCharCode(65 + i)}
@@ -428,6 +434,7 @@ const HangmanGame: NextPage = () => {
                   Compute on {programName}
                 </button>
                 {computeResult && <p>✅ Compute result: {computeResult}</p>}
+                <p className="mt-4">Remaining Attempts: {remainingAttempts}</p>
               </div>
             </div>
           )}
