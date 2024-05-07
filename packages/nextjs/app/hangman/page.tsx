@@ -39,6 +39,7 @@ const HangmanGame: NextPage = () => {
   const [storedSecretsNameToStoreId, setStoredSecretsNameToStoreId] = useState<StringObject>({
     letter1: null,
     letter2: null,
+    letter3: null,
     guess: null,
   });
   const [parties] = useState<string[]>(["Party1"]);
@@ -139,6 +140,23 @@ const HangmanGame: NextPage = () => {
         setStoredSecretsNameToStoreId(prevSecrets => ({
           ...prevSecrets,
           ["letter2"]: store_id,
+        }));
+      });
+      await storeSecretsInteger(
+        nillion,
+        nillionClient,
+        [{ name: "letter3",value: (secretValue[2].charCodeAt(0) - 96).toString(), }],
+        programId,
+        partyName,
+        permissionedUserIdForRetrieveSecret ? [permissionedUserIdForRetrieveSecret] : [],
+        permissionedUserIdForUpdateSecret ? [permissionedUserIdForUpdateSecret] : [],
+        permissionedUserIdForDeleteSecret ? [permissionedUserIdForDeleteSecret] : [],
+        permissionedUserIdForComputeSecret ? [permissionedUserIdForComputeSecret] : [],
+      ).then(async (store_id: string) => {
+        console.log("Secret stored at store_id:", store_id);
+        setStoredSecretsNameToStoreId(prevSecrets => ({
+          ...prevSecrets,
+          ["letter3"]: store_id,
         }));
       });
     }
@@ -333,6 +351,23 @@ const HangmanGame: NextPage = () => {
                             <button
                               className="btn btn-sm btn-primary mt-4"
                               onClick={() => handleRetrieveInt("letter2", storedSecretsNameToStoreId.letter2)}
+                            >
+                              👀 Retrieve SecretInteger
+                            </button>
+                          </>
+                        )}
+                        <br />
+                        {!!storedSecretsNameToStoreId.letter3 && userKey && (
+                          <>
+                            <RetrieveSecretCommand
+                              secretType="SecretInteger"
+                              userKey={userKey}
+                              storeId={storedSecretsNameToStoreId.letter3}
+                              secretName="letter3"
+                            />
+                            <button
+                              className="btn btn-sm btn-primary mt-4"
+                              onClick={() => handleRetrieveInt("letter3", storedSecretsNameToStoreId.letter3)}
                             >
                               👀 Retrieve SecretInteger
                             </button>
