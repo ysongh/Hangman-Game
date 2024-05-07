@@ -305,7 +305,7 @@ const HangmanGame: NextPage = () => {
                   Step 2: Store secret integers with program bindings to the {programName} program
                 </h1>
 
-                <div className="flex flex-row w-full justify-between items-center my-10 mx-10">
+                <div className="flex flex-row items-center my-10 mx-10">
                   <div className="flex-1 px-2">
                     {!!storedSecretsNameToStoreId.letter1 && userKey ? (
                       <>
@@ -321,6 +321,23 @@ const HangmanGame: NextPage = () => {
                         >
                           👀 Retrieve SecretInteger
                         </button>
+                        <br />
+                        {!!storedSecretsNameToStoreId.letter2 && userKey && (
+                          <>
+                            <RetrieveSecretCommand
+                              secretType="SecretInteger"
+                              userKey={userKey}
+                              storeId={storedSecretsNameToStoreId.letter2}
+                              secretName="letter2"
+                            />
+                            <button
+                              className="btn btn-sm btn-primary mt-4"
+                              onClick={() => handleRetrieveInt("letter2", storedSecretsNameToStoreId.letter2)}
+                            >
+                              👀 Retrieve SecretInteger
+                            </button>
+                          </>
+                        )}
                       </>
                     ) : (
                       <SecretWordForm
@@ -329,25 +346,6 @@ const HangmanGame: NextPage = () => {
                         isDisabled={!programId}
                         secretType="number"
                       />
-                    )}
-                  </div>
-
-                  <div className="flex-1 px-2">
-                    {!!storedSecretsNameToStoreId.letter2 && userKey && (
-                      <>
-                        <RetrieveSecretCommand
-                          secretType="SecretInteger"
-                          userKey={userKey}
-                          storeId={storedSecretsNameToStoreId.letter2}
-                          secretName="letter2"
-                        />
-                        <button
-                          className="btn btn-sm btn-primary mt-4"
-                          onClick={() => handleRetrieveInt("letter2", storedSecretsNameToStoreId.letter2)}
-                        >
-                          👀 Retrieve SecretInteger
-                        </button>
-                      </>
                     )}
                   </div>
                 </div>
